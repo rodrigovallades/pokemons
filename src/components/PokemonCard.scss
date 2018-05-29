@@ -1,17 +1,25 @@
 @import '../styles/_mixins.scss';
+@import '../styles/_variables.scss';
 
 .pokemons__pokemon {
   margin-bottom: 10px;
   cursor: pointer;
 
+  &:hover {
+    border-color: $mainAccent;
+  }
+
+  .card-title {
+    margin-bottom: 0;
+    text-align: center;
+  }
+
   @include breakpoint(medium) {
-    flex: 1 0 350px;
+    flex: 1 1 auto;
     margin: 5px;
-    width: 50%;
   }
 
   @include breakpoint(large) {
-    flex-grow: 1;
-    width: 33%;
+
   }
 }
