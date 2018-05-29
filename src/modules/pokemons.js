@@ -1,7 +1,7 @@
 import pokeapi from '../constants/pokeapi.constants';
 import constants from '../constants/pokemons.constants';
 
-export const initialState = { pokemons: [], loading: true };
+export const initialState = { pokemons: [], loading: false };
 
 // reducers
 export default (state = initialState, action) => {

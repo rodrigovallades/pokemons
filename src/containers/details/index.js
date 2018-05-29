@@ -32,14 +32,24 @@ export class Details extends Component {
   }
 
   renderDetails() {
-    if (!this.state.details) {
+    if (!this.state.details.name) {
       return (
         <p>No details found.</p>
       )
     }
     return (
-      <div className="pokemon__details">
-        <p className="mb-1">{this.state.details.name}</p>
+      <div className="card pokemon__details">
+        <div class="card-body">
+          <h5 class="card-title">{this.state.details.name}</h5>
+        </div>
+        <div className="card-img"><img src={this.state.details.sprites.front_default} alt="Card image cap" /> <img src={this.state.details.sprites.back_default} alt="Card image cap" /></div>
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">Default character: {String(this.state.details.is_default)}</li>
+          <li className="list-group-item">Base experience: {this.state.details.base_experience}</li>
+          <li className="list-group-item">Height: {this.state.details.height}</li>
+          <li className="list-group-item">Weight: {this.state.details.weight}</li>
+          <li className="list-group-item">Abilities: {this.state.details.abilities && this.state.details.abilities.map(a => a.ability.name).join(', ')}</li>
+        </ul>
       </div>
     )
   }
@@ -51,7 +61,7 @@ export class Details extends Component {
           <Loader />
         )}
         <Grid>
-          <h1 className="title"><span className="float-right"><small><Link to="/pokemons">&lt; pokemons</Link></small></span> {this.state.pokemon} <small className="text-muted">details</small></h1>
+          <h1 className="title"><span className="float-right"><small><Link to="/pokemons">&lt; pokemons</Link></small></span> {this.state.details.name} <small className="text-muted">details</small></h1>
           <div className='list-group pokemon'>
             {this.renderDetails()}
           </div>

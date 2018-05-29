@@ -1,7 +1,7 @@
 import pokeapi from '../constants/pokeapi.constants';
 import constants from '../constants/details.constants';
 
-export const initialState = { details: {}, loading: true };
+export const initialState = { details: {}, loading: false };
 
 // reducers
 export default (state = initialState, action) => {
