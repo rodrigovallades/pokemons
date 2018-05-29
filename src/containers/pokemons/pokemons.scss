@@ -1,0 +1,11 @@
+@import '../../styles/_mixins.scss';
+
+div.pokemons {
+  margin: 10px 0;
+
+  @include breakpoint(medium) {
+    margin: 10px -5px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

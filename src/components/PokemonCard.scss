@@ -1,0 +1,17 @@
+@import '../styles/_mixins.scss';
+
+.pokemons__pokemon {
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  @include breakpoint(medium) {
+    flex: 1 0 350px;
+    margin: 5px;
+    width: 50%;
+  }
+
+  @include breakpoint(large) {
+    flex-grow: 1;
+    width: 33%;
+  }
+}
