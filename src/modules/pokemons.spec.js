@@ -13,7 +13,7 @@ describe('Pokemons action creators', () => {
     fetch.resetMocks();
   });
 
-  it('calls the correct Github endpoint', () => {
+  it('calls the correct Pokeapi endpoint', () => {
     expect(pokeapi.URL).toEqual('https://pokeapi.co/api/v2/pokemon')
   })
 

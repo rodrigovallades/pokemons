@@ -80,7 +80,7 @@ export class Pokemons extends Component {
 };
 
 Pokemons.defaultProps = {
-  getPokemons: function(){}  
+  getPokemons: function(){}
 };
 
 const mapStateToProps = state => ({
