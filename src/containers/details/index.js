@@ -22,7 +22,7 @@ export class Details extends Component {
   componentDidMount() {
     const { params } = this.props.match
     this.setState({ pokemon: params.pokemon });
-    this.props.getDetails(params)
+    this.props.getDetails(params).then(res => console.log(res))
   }
 
   componentWillReceiveProps(props){
@@ -39,10 +39,10 @@ export class Details extends Component {
     }
     return (
       <div className="card pokemon__details">
-        <div class="card-body">
-          <h5 class="card-title">{this.state.details.name}</h5>
+        <div className="card-body">
+          <h5 className="card-title">{this.state.details.name}</h5>
         </div>
-        <div className="card-img"><img src={this.state.details.sprites.front_default} alt="Card image cap" /> <img src={this.state.details.sprites.back_default} alt="Card image cap" /></div>
+        <div className="card-img"><img src={this.state.details.sprites.front_default} alt="front" /> <img src={this.state.details.sprites.back_default} alt="back" /></div>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">Default character: {String(this.state.details.is_default)}</li>
           <li className="list-group-item">Base experience: {this.state.details.base_experience}</li>
@@ -61,10 +61,17 @@ export class Details extends Component {
           <Loader />
         )}
         <Grid>
-          <h1 className="title"><span className="float-right"><small><Link to="/pokemons">&lt; pokemons</Link></small></span> {this.state.details.name} <small className="text-muted">details</small></h1>
-          <div className='list-group pokemon'>
-            {this.renderDetails()}
-          </div>
+          {this.props.loading && (
+            <h1 className="title title--loading">Loading details...</h1>
+          )}
+          {!this.props.loading && (
+            <div>
+              <h1 className="title"><span className="float-right"><small><Link to="/pokemons">&lt; pokemons</Link></small></span> {this.state.details.name} <small className="text-muted">details</small></h1>
+              <div className='list-group pokemon'>
+                {this.renderDetails()}
+              </div>
+            </div>
+          )}
           <Alert bsStyle="info">
             <Octicon name="info"/> Tip: Download the <strong><a href="https://github.com/zalmoxisus/redux-devtools-extension" target="_blnk">Redux DevTools</a></strong> to inspect the Redux store state.
           </Alert>

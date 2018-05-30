@@ -59,10 +59,17 @@ export class Pokemons extends Component {
           <Loader />
         )}
         <Grid>
-          <h1 className="title"><span className="badge badge-light">{this.state.pokemons.length}</span> Pokemons</h1>
-          <div className='pokemons'>
-            {this.renderPokemons()}
-          </div>
+          {this.props.loading && (
+            <h1 className="title title--loading">Loading pokemons...</h1>
+          )}
+          {!this.props.loading && (
+            <div>
+              <h1 className="title"><span className="badge badge-light">{this.state.pokemons.length}</span> Pokemons</h1>
+              <div className='pokemons'>
+                {this.renderPokemons()}
+              </div>
+            </div>
+          )}
           <Alert bsStyle="info">
             <Octicon name="info"/> Tip: Download the <strong><a href="https://github.com/zalmoxisus/redux-devtools-extension" target="_blnk">Redux DevTools</a></strong> to inspect the Redux store state.
           </Alert>
