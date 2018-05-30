@@ -3,6 +3,14 @@
           transform: scale($amount);
 }
 
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
 @mixin breakpoint($point) {
    @if $point == medium {
      @media (min-width: 500px) { @content; }
