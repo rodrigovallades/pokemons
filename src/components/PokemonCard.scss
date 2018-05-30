@@ -15,11 +15,9 @@
   }
 
   @include breakpoint(medium) {
+    width: 250px;
     flex: 1 1 auto;
     margin: 5px;
   }
 
-  @include breakpoint(large) {
-
-  }
 }
