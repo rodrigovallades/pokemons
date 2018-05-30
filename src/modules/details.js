@@ -1,5 +1,6 @@
 import pokeapi from '../constants/pokeapi.constants';
 import constants from '../constants/details.constants';
+import { history } from '../store'
 
 export const initialState = { details: {}, loading: false };
 
@@ -40,6 +41,7 @@ export const getDetails = params => {
 
     return fetch(`${pokeapi.URL}/${params.pokemon}`)
       .then(details => {
+        if (details.status === 404) history.push('/pokemons');        
         details.json().then(details => {
           dispatch(success(details));
         })
