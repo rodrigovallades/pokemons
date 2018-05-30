@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pokemons container renders "Pokemons" deep correctly 1`] = `
+<div>
+  <div
+    className="container"
+  >
+    <div>
+      <h1
+        className="title"
+      >
+        <span
+          className="badge badge-light"
+        >
+          0
+        </span>
+         Pokemons
+      </h1>
+      <div
+        className="pokemons"
+      >
+        <p>
+          No pokemons found.
+        </p>
+      </div>
+    </div>
+    <div
+      className="alert alert-info"
+      role="alert"
+    >
+      <span
+        className="octicon octicon-info"
+      />
+       Tip: Download the 
+      <strong>
+        <a
+          href="https://github.com/zalmoxisus/redux-devtools-extension"
+          target="_blnk"
+        >
+          Redux DevTools
+        </a>
+      </strong>
+       to inspect the Redux store state.
+    </div>
+  </div>
+</div>
+`;

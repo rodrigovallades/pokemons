@@ -22,7 +22,7 @@ export class Details extends Component {
   componentDidMount() {
     const { params } = this.props.match
     this.setState({ pokemon: params.pokemon });
-    this.props.getDetails(params).then(res => console.log(res))
+    this.props.getDetails(params);
   }
 
   componentWillReceiveProps(props){
@@ -78,6 +78,13 @@ export class Details extends Component {
         </Grid>
       </div>
     )
+  }
+};
+
+Details.defaultProps = {
+  getDetails: function(){},
+  match: {
+    params: {}
   }
 };
 
