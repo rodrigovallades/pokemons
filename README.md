@@ -1,5 +1,9 @@
 # Pokeapi list
 
+## Preview (deployed on Heroku)
+
+https://pokeapi-vallades.herokuapp.com/pokemons
+
 ## About me
 
   - Rodrigo Vallades [rodrigo.vallades@gmail.com]
