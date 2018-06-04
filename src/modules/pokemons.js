@@ -1,7 +1,7 @@
 import pokeapi from '../constants/pokeapi.constants';
 import constants from '../constants/pokemons.constants';
 
-export const initialState = { pokemons: [], loading: false };
+export const initialState = { pokemons: [], next: '', previous: '', count: 0, loading: false };
 
 // reducers
 export default (state = initialState, action) => {
@@ -10,19 +10,28 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        pokemons: []
+        pokemons: [],
+        next: '',
+        previous: '',
+        count: 0
       };
     case constants.POKEMONS_SUCCESS:
       return {
         ...state,
         loading: false,
-        pokemons: action.pokemons.results
+        pokemons: action.pokemons.results,
+        next: action.pokemons.next,
+        previous: action.pokemons.previous,
+        count: action.pokemons.count
       };
     case constants.POKEMONS_FAILURE:
       return {
         ...state,
         loading: false,
-        pokemons: []
+        pokemons: [],
+        next: '',
+        previous: '',
+        count: 0
       };
     default:
       return state
@@ -38,7 +47,9 @@ export const getPokemons = params => {
 
     dispatch(request(params));
 
-    return fetch(`${pokeapi.URL}`)
+    const fetchURL = params ? params : pokeapi.URL;
+
+    return fetch(`${fetchURL}`)
       .then(pokemons => {
         pokemons.json().then(pokemons => {
           dispatch(success(pokemons));
