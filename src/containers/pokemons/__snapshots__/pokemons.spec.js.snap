@@ -24,6 +24,7 @@ exports[`Pokemons container renders "Pokemons" deep correctly 1`] = `
         </p>
       </div>
     </div>
+    
     <div
       className="alert alert-info"
       role="alert"

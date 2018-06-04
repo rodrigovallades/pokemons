@@ -18,11 +18,11 @@ describe('Pokemons action creators', () => {
   })
 
   it('dispatches the correct actions on successful fetch request', () => {
-    fetch.mockResponse(JSON.stringify([ { name: 'repo1'} ]))
+    fetch.mockResponse(JSON.stringify([ { name: 'pokemon1'} ]))
 
     const expectedActions = [
       { type: constants.POKEMONS_REQUEST},
-      { type: constants.POKEMONS_SUCCESS, pokemons: [{name: 'repo1'}] }
+      { type: constants.POKEMONS_SUCCESS, pokemons: [{name: 'pokemon1'}] }
     ]
     const store = mockStore(initialState)
     return (
@@ -50,6 +50,9 @@ describe('Pokemons reducer', () => {
       {
         pokemons: [],
         loading: true,
+        next: '',
+        previous: '',
+        count: 0
       }
     )
   })
@@ -75,6 +78,9 @@ describe('Pokemons reducer', () => {
       {
         pokemons: [],
         loading: false,
+        next: '',
+        previous: '',
+        count: 0
       }
     )
   })
