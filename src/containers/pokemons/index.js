@@ -9,6 +9,7 @@ import { getPokemons } from '../../modules/pokemons'
 import { history } from '../../store'
 import PokemonCard from '../../components/PokemonCard'
 import Loader from '../../components/Loader'
+import Pagination from '../../components/Pagination'
 
 import './pokemons.css'
 
@@ -23,8 +24,6 @@ export class Pokemons extends Component {
       to: 0,
       count: 0
     };
-    this.getNext = this.getNext.bind(this);
-    this.getPrevious = this.getPrevious.bind(this);
   }
 
   componentWillMount() {
@@ -93,23 +92,16 @@ export class Pokemons extends Component {
           {!this.props.loading && (
             <div>
               <h1 className="title"><span className="badge badge-light">{this.state.pokemons.length}</span> Pokemons</h1>
+              {(this.state.previous || this.state.next) && (
+                <Pagination previous={this.state.previous} next={this.state.next} from={this.state.from} to={this.state.to} count={this.state.count} getPrevious={() => this.getPrevious()} getNext={() => this.getNext()} />
+              )}
               <div className='pokemons'>
                 {this.renderPokemons()}
               </div>
+              {(this.state.previous || this.state.next) && (
+                <Pagination previous={this.state.previous} next={this.state.next} from={this.state.from} to={this.state.to} count={this.state.count} getPrevious={() => this.getPrevious()} getNext={() => this.getNext()} />
+              )}
             </div>
-          )}
-          {(this.state.previous || this.state.next) && (
-            <ul className="pagination justify-content-center">
-              <li className={ this.state.previous ? "page-item" : "disabled page-item" } onClick={this.getPrevious}>
-                <span className="page-link">&laquo; Previous</span>
-              </li>
-              <li className="page-item disabled">
-                <span className="page-link">{this.state.from} to {this.state.to} of {this.state.count}</span>
-              </li>
-              <li className={ this.state.next ? "page-item" : "disabled page-item" } onClick={this.getNext}>
-                <span className="page-link">Next &raquo;</span>
-              </li>
-            </ul>
           )}
           <Alert bsStyle="info">
             <Octicon name="info"/> Tip: Download the <strong><a href="https://github.com/zalmoxisus/redux-devtools-extension" target="_blnk">Redux DevTools</a></strong> to inspect the Redux store state.
