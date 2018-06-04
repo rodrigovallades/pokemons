@@ -16,6 +16,7 @@ exports[`Pokemons container renders "Pokemons" deep correctly 1`] = `
         </span>
          Pokemons
       </h1>
+      
       <div
         className="pokemons"
       >
@@ -23,8 +24,8 @@ exports[`Pokemons container renders "Pokemons" deep correctly 1`] = `
           No pokemons found.
         </p>
       </div>
+      
     </div>
-    
     <div
       className="alert alert-info"
       role="alert"
