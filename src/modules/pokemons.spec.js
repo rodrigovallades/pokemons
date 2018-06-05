@@ -44,15 +44,11 @@ describe('Pokemons reducer', () => {
     expect(
       reducer({}, {
         type: constants.POKEMONS_REQUEST,
-        pokemons: [],
+        loading: true,
       })
     ).toEqual(
-      {
-        pokemons: [],
-        loading: true,
-        next: '',
-        previous: '',
-        count: 0
+      {        
+        loading: true
       }
     )
   })

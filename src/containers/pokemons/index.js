@@ -14,36 +14,41 @@ import Pagination from '../../components/Pagination'
 import './pokemons.css'
 
 export class Pokemons extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      pokemons: [],
-      next: '',
-      previous: '',
       from: 0,
-      to: 0,
-      count: 0
+      to: 0
     };
   }
 
   componentWillMount() {
-    this.props.getPokemons()
+    if (!this.props.pokemons.length) {
+      this.props.getPokemons()
+    } else {
+
+      this.setState((prevState, props) => {
+        const from = props.next ? qs.parse(qs.extract(props.next)).offset - qs.parse(qs.extract(props.next)).limit : props.count - props.pokemons.length,
+              to = props.next ? qs.parse(qs.extract(props.next)).offset : props.count;
+
+        return {
+          from,
+          to
+        }
+      });
+    }
   }
 
   componentWillReceiveProps(props){
 
     this.setState((prevState, props) => {
-
       const from = props.next ? qs.parse(qs.extract(props.next)).offset - qs.parse(qs.extract(props.next)).limit : props.count - props.pokemons.length,
             to = props.next ? qs.parse(qs.extract(props.next)).offset : props.count;
 
       return {
-        pokemons: props.pokemons,
-        next: props.next,
-        previous: props.previous,
-        from: from,
-        to: to,
-        count: props.count
+        from,
+        to
       }
     });
   }
@@ -53,21 +58,21 @@ export class Pokemons extends Component {
   }
 
   getNext() {
-    if (this.props.next) this.props.getPokemons(this.state.next)
+    if (this.props.next) this.props.getPokemons(this.props.next)
   }
 
   getPrevious() {
-    if (this.props.previous) this.props.getPokemons(this.state.previous)    
+    if (this.props.previous) this.props.getPokemons(this.props.previous)
   }
 
   renderPokemons() {
-    if (!this.state.pokemons.length) {
+    if (!this.props.pokemons.length) {
       return (
         <p>No pokemons found.</p>
       )
     }
 
-    return this.state.pokemons.map((pokemon, index) => {
+    return this.props.pokemons.map((pokemon, index) => {
       return (
         <PokemonCard
           key={index}
@@ -79,6 +84,10 @@ export class Pokemons extends Component {
     })
   }
 
+  renderTitle() {
+    return this.props.loading ? (<span>Pokemons (loading...)</span>) : (<span>Pokemons</span>)
+  }
+
   render() {
     return (
       <div>
@@ -86,22 +95,15 @@ export class Pokemons extends Component {
           <Loader />
         )}
         <Grid>
-          {this.props.loading && (
-            <h1 className="title title--loading">Loading pokemons...</h1>
+          <h1 className="title"><span className="badge badge-light">{this.props.pokemons.length}</span> {this.renderTitle()}</h1>
+          {(this.props.previous || this.props.next) && (
+            <Pagination previous={this.props.previous} next={this.props.next} from={this.state.from} to={this.state.to} count={this.props.count} getPrevious={() => this.getPrevious()} getNext={() => this.getNext()} />
           )}
-          {!this.props.loading && (
-            <div>
-              <h1 className="title"><span className="badge badge-light">{this.state.pokemons.length}</span> Pokemons</h1>
-              {(this.state.previous || this.state.next) && (
-                <Pagination previous={this.state.previous} next={this.state.next} from={this.state.from} to={this.state.to} count={this.state.count} getPrevious={() => this.getPrevious()} getNext={() => this.getNext()} />
-              )}
-              <div className='pokemons'>
-                {this.renderPokemons()}
-              </div>
-              {(this.state.previous || this.state.next) && (
-                <Pagination previous={this.state.previous} next={this.state.next} from={this.state.from} to={this.state.to} count={this.state.count} getPrevious={() => this.getPrevious()} getNext={() => this.getNext()} />
-              )}
-            </div>
+          <div className='pokemons'>
+            {this.renderPokemons()}
+          </div>
+          {(this.props.previous || this.props.next) && (
+            <Pagination previous={this.props.previous} next={this.props.next} from={this.state.from} to={this.state.to} count={this.props.count} getPrevious={() => this.getPrevious()} getNext={() => this.getNext()} />
           )}
           <Alert bsStyle="info">
             <Octicon name="info"/> Tip: Download the <strong><a href="https://github.com/zalmoxisus/redux-devtools-extension" target="_blnk">Redux DevTools</a></strong> to inspect the Redux store state.
@@ -113,7 +115,8 @@ export class Pokemons extends Component {
 };
 
 Pokemons.defaultProps = {
-  getPokemons: function(){}
+  getPokemons: function(){},
+  pokemons: []
 };
 
 const mapStateToProps = state => ({

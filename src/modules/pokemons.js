@@ -9,11 +9,7 @@ export default (state = initialState, action) => {
     case constants.POKEMONS_REQUEST:
       return {
         ...state,
-        loading: true,
-        pokemons: [],
-        next: '',
-        previous: '',
-        count: 0
+        loading: true
       };
     case constants.POKEMONS_SUCCESS:
       return {
