@@ -21,7 +21,9 @@ exports[`Pokemons container renders "Pokemons" deep correctly 1`] = `
     <div
       className="pokemons"
     >
-      <p>
+      <p
+        className="notfound"
+      >
         No pokemons found.
       </p>
     </div>
