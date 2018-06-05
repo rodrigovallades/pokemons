@@ -27,21 +27,15 @@ export class Pokemons extends Component {
     if (!this.props.pokemons.length) {
       this.props.getPokemons()
     } else {
-
-      this.setState((prevState, props) => {
-        const from = props.next ? qs.parse(qs.extract(props.next)).offset - qs.parse(qs.extract(props.next)).limit : props.count - props.pokemons.length,
-              to = props.next ? qs.parse(qs.extract(props.next)).offset : props.count;
-
-        return {
-          from,
-          to
-        }
-      });
+      this.updatePagination()
     }
   }
 
   componentWillReceiveProps(props){
+    this.updatePagination()
+  }
 
+  updatePagination() {
     this.setState((prevState, props) => {
       const from = props.next ? qs.parse(qs.extract(props.next)).offset - qs.parse(qs.extract(props.next)).limit : props.count - props.pokemons.length,
             to = props.next ? qs.parse(qs.extract(props.next)).offset : props.count;
@@ -68,7 +62,7 @@ export class Pokemons extends Component {
   renderPokemons() {
     if (!this.props.pokemons.length) {
       return (
-        <p>No pokemons found.</p>
+        <p className='notfound'>No pokemons found.</p>
       )
     }
 
